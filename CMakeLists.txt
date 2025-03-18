@@ -17,11 +17,14 @@ else()
   set (QT_VERSION 5)
 endif()
 
+option (QAT_BUILD_QAT3D "Build the QAT 3D component" ON) 
 
 
 # Use the GNU install directory names.
 include( GNUInstallDirs )
-set(CMAKE_CXX_FLAGS "-DQATBINDIR=${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR} -DQATSHAREDIR=${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR} -DQATMANDIR=${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_MANDIR} ")
+set(CMAKE_CXX_FLAGS "-DQATBINDIR=${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_BINDIR} -DQATSHAREDIR=${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_DATAROOTDIR} -DQATMANDIR=${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_MANDIR} -DQATLIBDIR=${CMAKE_INSTALL_FULL_LIBDIR}")
+
+
 add_subdirectory(QatGenericFunctions)
 add_subdirectory(QatDataAnalysis)
 add_subdirectory(QatDataModeling)
@@ -29,7 +32,10 @@ add_subdirectory(QatPlotting)
 add_subdirectory(QatPlotWidgets)
 add_subdirectory(Qhfd)
 add_subdirectory(QatProject)
-add_subdirectory(QatInventorWidgets)
+if (QAT_BUILD_QAT3D)
+  message (STATUS "Building QatInventorWidgets" )
+  add_subdirectory(QatInventorWidgets)
+endif()
 
 
 
